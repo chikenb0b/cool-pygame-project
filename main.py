@@ -1,24 +1,36 @@
 import pygame
+from pygame.locals import *
 
-pygame.init()
+def main():
+    # Initialise screen
+    pygame.init()
+    screen = pygame.display.set_mode((150, 50))
+    pygame.display.set_caption('Basic Pygame program')
 
-# Set the window size
-screen_width = 640
-screen_height = 480
+    # Fill background
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    background.fill((250, 250, 250))
 
-# Create the window
-screen = pygame.display.set_mode((screen_width, screen_height))
+    # Display some text
+    font = pygame.font.Font(None, 36)
+    text = font.render("Hello There", 1, (10, 10, 10))
+    textpos = text.get_rect()
+    textpos.centerx = background.get_rect().centerx
+    background.blit(text, textpos)
 
-# Fill the window with black
-screen.fill((0, 0, 0))
+    # Blit everything to the screen
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
 
-# Update the display
-pygame.display.update()
+    # Event loop
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                return
 
-# Keep the window open until the user closes it
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            break
+        screen.blit(background, (0, 0))
+        pygame.display.flip()
 
-    pygame.display.update()
+
+if __name__ == '__main__': main()
